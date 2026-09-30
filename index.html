@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>癲癇重積狀態 (SE) 時間軸決策系統</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; padding: 10px 20px; }
+        .container { max-width: 800px; margin: 0 auto; background: #fff; padding: 25px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #2c3e50; border-bottom: 3px solid #8e44ad; padding-bottom: 10px; font-size: 1.6em; }
+        
+        /* 控制面板與計時器 */
+        .control-panel { background: #2c3e50; color: white; padding: 20px; border-radius: 8px; text-align: center; margin-bottom: 20px; position: sticky; top: 10px; z-index: 100; box-shadow: 0 4px 6px rgba(0,0,0,0.2); }
+        .timer-display { font-size: 3em; font-weight: bold; font-family: monospace; color: #f1c40f; margin: 10px 0; }
+        .timer-controls button { padding: 10px 20px; font-size: 1.1em; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; margin: 0 5px; transition: 0.2s; }
+        .btn-start { background: #27ae60; color: white; }
+        .btn-start:hover { background: #219653; }
+        .btn-stop { background: #e74c3c; color: white; }
+        .btn-reset { background: #95a5a6; color: white; }
+        
+        /* 輸入區 */
+        .input-group { display: flex; justify-content: space-between; gap: 15px; margin-bottom: 20px; }
+        .input-box { flex: 1; background: #f9f9f9; padding: 15px; border-radius: 8px; border: 1px solid #ddd; }
+        .input-box label { font-weight: bold; display: block; margin-bottom: 5px; color: #8e44ad; }
+        .input-box input { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 1.1em; box-sizing: border-box; }
+
+        /* 治療階段卡片 */
+        .phase-card { border: 2px solid #ddd; border-radius: 8px; padding: 15px; margin-bottom: 15px; transition: 0.3s; opacity: 0.6; filter: grayscale(100%); }
+        .phase-title { font-size: 1.2em; font-weight: bold; margin-bottom: 10px; display: flex; justify-content: space-between; }
+        .phase-active { border-color: #8e44ad; box-shadow: 0 0 15px rgba(142, 68, 173, 0.3); opacity: 1; filter: grayscale(0%); background: #fdfafb; }
+        
+        .phase-1 .phase-title { color: #27ae60; }
+        .phase-2 .phase-title { color: #f39c12; }
+        .phase-3 .phase-title { color: #c0392b; }
+
+        .drug-list { list-style: none; padding: 0; margin: 0; }
+        .drug-item { background: white; padding: 10px; border: 1px solid #eee; border-radius: 5px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
+        .drug-name { font-weight: bold; color: #34495e; }
+        .drug-dose { font-size: 1.2em; font-weight: bold; color: #d35400; background: #fbeee6; padding: 4px 8px; border-radius: 4px; }
+        .drug-note { font-size: 0.85em; color: #7f8c8d; display: block; margin-top: 4px; }
+        
+        .warning-text { color: #c0392b; font-weight: bold; font-size: 0.9em; margin-top: 5px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>癲癇重積狀態 (SE) 時間軸治療決策</h1>
+
+    <!-- 浮動控制面板 -->
+    <div class="control-panel">
+        <div>發作持續時間 (Seizure Duration)</div>
+        <div class="timer-display" id="timer">00:00</div>
+        <div class="timer-controls">
+            <button class="btn-start" onclick="startTimer()">啟動 / 繼續</button>
+            <button class="btn-stop" onclick="stopTimer()">暫停</button>
+            <button class="btn-reset" onclick="resetTimer()">重置</button>
+        </div>
+        <div id="status-indicator" style="margin-top: 10px; font-weight: bold; color: #2ecc71;">等待啟動...</div>
+    </div>
+
+    <!-- 參數輸入區 -->
+    <div class="input-group">
+        <div class="input-box">
+            <label>病患體重 (kg) - 影響所有劑量計算</label>
+            <input type="number" id="weight" value="60" min="10" max="150" oninput="calculateDoses()">
+        </div>
+        <div class="input-box">
+            <label>到院前已發作時間 (分鐘)</label>
+            <input type="number" id="baseTime" value="0" min="0" oninput="updateBaseTime()">
+        </div>
+    </div>
+
+    <!-- 階段一：Early SE (0-5 min) -->
+    <div class="phase-card phase-1 phase-active" id="card-phase-1">
+        <div class="phase-title">第一線治療：早期 SE (0 ~ 5 分鐘) <span>T1 = 5 min</span></div>
+        <div class="warning-text">目標：終止發作。若已給藥但發作持續，準備進入第二線。</div>
+        <ul class="drug-list">
+            <li class="drug-item">
+                <div>
+                    <span class="drug-name">Lorazepam (IV)</span>
+                    <span class="drug-note">0.1 mg/kg, 單次最大劑量 4mg (推注速度 <2mg/min)</span>
+                </div>
+                <div class="drug-dose"><span id="dose-lora">--</span> mg</div>
+            </li>
+            <li class="drug-item">
+                <div>
+                    <span class="drug-name">Midazolam (IM) - 無 IV 管路首選</span>
+                    <span class="drug-note">>40kg 給 10mg, 13-40kg 給 5mg (肌肉注射)</span>
+                </div>
+                <div class="drug-dose"><span id="dose-mida-im">--</span> mg</div>
+            </li>
+            <li class="drug-item">
+                <div>
+                    <span class="drug-name">Diazepam (IV)</span>
+                    <span class="drug-note">0.15 mg/kg, 單次最大劑量 10mg</span>
+                </div>
+                <div class="drug-dose"><span id="dose-diaz">--</span> mg</div>
+            </li>
+        </ul>
+    </div>
+
+    <!-- 階段二：Established SE (5-20 min) -->
+    <div class="phase-card phase-2" id="card-phase-2">
+        <div class="phase-title">第二線治療：定型 SE (5 ~ 20 分鐘) <span>T2 = 20 min</span></div>
+        <div class="warning-text">第一線藥物無效時給予（選擇一種）。需滴注數分鐘。</div>
+        <ul class="drug-list">
+            <li class="drug-item">
+                <div>
+                    <span class="drug-name">Levetiracetam (Keppra, IV)</span>
+                    <span class="drug-note">60 mg/kg, 絕對最大劑量 4500 mg (滴注 >15分)</span>
+                </div>
+                <div class="drug-dose"><span id="dose-lev">--</span> mg</div>
+            </li>
+            <li class="drug-item">
+                <div>
+                    <span class="drug-name">Valproate (Depakine, IV)</span>
+                    <span class="drug-note">40 mg/kg, 絕對最大劑量 3000 mg (滴注 >10分)</span>
+                </div>
+                <div class="drug-dose"><span id="dose-val">--</span> mg</div>
+            </li>
+            <li class="drug-item">
+                <div>
+                    <span class="drug-name">Fosphenytoin (IV)</span>
+                    <span class="drug-note">20 mg PE/kg, 最大 1500 mg PE (備有心電圖監測)</span>
+                </div>
+                <div class="drug-dose"><span id="dose-fosp">--</span> mg PE</div>
+            </li>
+        </ul>
+    </div>
+
+    <!-- 階段三：Refractory SE (>20 min) -->
+    <div class="phase-card phase-3" id="card-phase-3">
+        <div class="phase-title">第三線治療：難治型 SE (> 20 分鐘) <span>Refractory SE</span></div>
+        <div class="warning-text">⚠️ 警報：發作超過20分鐘！應緊急插管並轉入ICU，啟動麻醉藥物與連續腦波 (cEEG)。</div>
+        <ul class="drug-list">
+            <li class="drug-item">
+                <div>
+                    <span class="drug-name">Propofol (IV)</span>
+                    <span class="drug-note">Bolus: 1-2 mg/kg, Maintenance: 1-10 mg/kg/hr (注意 PRIS)</span>
+                </div>
+                <div class="drug-dose">
+                    Bolus: <span id="dose-prop-b">--</span> mg <br>
+                    維持: <span id="dose-prop-m1">--</span> ~ <span id="dose-prop-m2">--</span> mg/hr
+                </div>
+            </li>
+            <li class="drug-item">
+                <div>
+                    <span class="drug-name">Midazolam (IV Infusion)</span>
+                    <span class="drug-note">Bolus: 0.2 mg/kg, Maintenance: 0.05-2 mg/kg/hr</span>
+                </div>
+                <div class="drug-dose">
+                    Bolus: <span id="dose-mida-iv-b">--</span> mg <br>
+                    維持: <span id="dose-mida-iv-m">--</span> mg/hr 起跳
+                </div>
+            </li>
+        </ul>
+    </div>
+
+</div>
+
+<script>
+    let timerInterval;
+    let totalSeconds = 0;
+    let baseSeconds = 0;
+    let isRunning = false;
+
+    // 初始化與連動計算
+    window.onload = function() {
+        calculateDoses();
+        updateDisplay();
+    };
+
+    function updateBaseTime() {
+        let baseMins = parseFloat(document.getElementById('baseTime').value) || 0;
+        baseSeconds = Math.floor(baseMins * 60);
+        if (!isRunning) {
+            totalSeconds = baseSeconds;
+            updateDisplay();
+        }
+    }
+
+    function startTimer() {
+        if (!isRunning) {
+            isRunning = true;
+            timerInterval = setInterval(() => {
+                totalSeconds++;
+                updateDisplay();
+            }, 1000);
+        }
+    }
+
+    function stopTimer() {
+        isRunning = false;
+        clearInterval(timerInterval);
+    }
+
+    function resetTimer() {
+        stopTimer();
+        let baseMins = parseFloat(document.getElementById('baseTime').value) || 0;
+        totalSeconds = Math.floor(baseMins * 60);
+        updateDisplay();
+    }
+
+    function updateDisplay() {
+        let minutes = Math.floor(totalSeconds / 60);
+        let seconds = totalSeconds % 60;
+        document.getElementById('timer').innerText = 
+            String(minutes).padStart(2, '0') + ":" + String(seconds).padStart(2, '0');
+        
+        updatePhaseUI(minutes);
+    }
+
+    // 動態更新 UI 階段顏色
+    function updatePhaseUI(minutes) {
+        let status = document.getElementById('status-indicator');
+        let p1 = document.getElementById('card-phase-1');
+        let p2 = document.getElementById('card-phase-2');
+        let p3 = document.getElementById('card-phase-3');
+
+        // 重置樣式
+        p1.classList.remove('phase-active');
+        p2.classList.remove('phase-active');
+        p3.classList.remove('phase-active');
+
+        if (minutes < 5) {
+            status.innerText = "【階段一】Early SE：請給予 Benzodiazepines";
+            status.style.color = "#27ae60";
+            p1.classList.add('phase-active');
+        } else if (minutes >= 5 && minutes < 20) {
+            status.innerText = "【階段二】Established SE：請給予抗癲癇藥物 (ASMs)";
+            status.style.color = "#f39c12";
+            p2.classList.add('phase-active');
+        } else {
+            status.innerText = "【階段三】Refractory SE：準備插管與麻醉藥物滴注！";
+            status.style.color = "#e74c3c";
+            p3.classList.add('phase-active');
+            document.querySelector('.control-panel').style.boxShadow = "0 0 20px rgba(231, 76, 60, 0.8)";
+        }
+    }
+
+    // 依據 NCS/ILAE 指引防呆計算劑量
+    function calculateDoses() {
+        let weight = parseFloat(document.getElementById('weight').value) || 60;
+        
+        // --- 階段一 ---
+        // Lorazepam: 0.1 mg/kg, max 4mg
+        let lora = Math.min(weight * 0.1, 4).toFixed(1);
+        document.getElementById('dose-lora').innerText = lora;
+
+        // Midazolam IM: >40kg -> 10mg, else 5mg
+        let midaIM = weight > 40 ? 10 : 5;
+        document.getElementById('dose-mida-im').innerText = midaIM;
+
+        // Diazepam: 0.15 mg/kg, max 10mg
+        let diaz = Math.min(weight * 0.15, 10).toFixed(1);
+        document.getElementById('dose-diaz').innerText = diaz;
+
+        // --- 階段二 ---
+        // Levetiracetam: 60 mg/kg, max 4500mg
+        let lev = Math.min(weight * 60, 4500).toFixed(0);
+        document.getElementById('dose-lev').innerText = lev;
+
+        // Valproate: 40 mg/kg, max 3000mg
+        let val = Math.min(weight * 40, 3000).toFixed(0);
+        document.getElementById('dose-val').innerText = val;
+
+        // Fosphenytoin: 20 mg PE/kg, max 1500mg
+        let fosp = Math.min(weight * 20, 1500).toFixed(0);
+        document.getElementById('dose-fosp').innerText = fosp;
+
+        // --- 階段三 ---
+        // Propofol: bolus 1-2 mg/kg, maint 1-10 mg/kg/hr
+        document.getElementById('dose-prop-b').innerText = (weight * 1).toFixed(0) + " ~ " + (weight * 2).toFixed(0);
+        document.getElementById('dose-prop-m1').innerText = (weight * 1).toFixed(0);
+        document.getElementById('dose-prop-m2').innerText = (weight * 10).toFixed(0);
+
+        // Midazolam IV Infusion: bolus 0.2 mg/kg, maint starts 0.05 mg/kg/hr
+        document.getElementById('dose-mida-iv-b').innerText = (weight * 0.2).toFixed(1);
+        document.getElementById('dose-mida-iv-m').innerText = (weight * 0.05).toFixed(1);
+    }
+</script>
+
+</body>
+</html>
