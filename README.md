@@ -12,20 +12,34 @@
 * **⏱️ 內建急症連動計時器 (SE Stopwatch)**
   * 支援輸入「到院前已發作時間 (Pre-hospital seizure duration)」，讓院內計時器無縫接軌真實發病時間。
   * 具備直覺的啟動、暫停與重置控制面板。
-* **🚦 時間軸驅動視覺引導 (Time-Driven UI)**
-  * **0 ~ 5 分鐘 (Early SE)**：焦點鎖定第一線 Benzodiazepines，介面呈現綠色通行指示。
-  * **5 ~ 20 分鐘 (Established SE)**：時間一到，系統自動灰階化第一線藥物，將視覺焦點移至第二線抗癲癇藥物 (ASMs) 並亮起黃色警告。
-  * **> 20 分鐘 (Refractory SE)**：系統發出紅底視覺警報，提示已進入難治型階段，強烈建議插管並啟動麻醉藥物滴注。
+* **🚦 時間 + 治療反應雙軌引導 (v2.0)**
+  * **0 ~ 5 分鐘 穩定期**：ABC、血糖（Thiamine → D50W）、IV、抽血；懷孕 ≥20 週提示 MgSO₄。
+  * **第一線 BZD**（AES 5–20 分）：記錄給藥後觀察 5 分鐘；仍發作 → 重複一劑（Midazolam IM 僅單次）。
+  * **第二線 ASM**（AES 20–40 分）：BZD 兩劑（或 IM 一劑）無效即進入，不必等滿 20 分。
+  * **難治型 RSE**：依定義「BZD + 一種 ASM 仍無效」判定（不再以「>20 分鐘」誤判）；麻醉藥 ≥24 小時 → 超難治型。
+  * 時間逾時警示：>10 分未給 BZD、>20 分未給 ASM、≥30 分（ILAE t2）、≥40 分（AES 第三線）。
+* **🧾 處置時間戳記**：每個藥物可「記錄給藥」，另有發作停止／再發／撤銷；一鍵複製交班。計時與紀錄存於瀏覽器，重新整理不會遺失。
 * **💊 國際規範之防呆劑量精算 (Smart Dose Calculator)**
   * 輸入病患體重後，系統會**瞬間算出所有三線藥物的推注 (Bolus) 與維持 (Maintenance) 劑量**。
   * 內建嚴格的**最大劑量封頂限制**（例如：Lorazepam 單次最大 4mg、Levetiracetam 絕對最大 4500mg、Valproate 最大 3000mg），從根本防堵急救高壓下人為心算導致的給藥過量。
+  * 體重空白或超出 3–250 kg 時不顯示劑量（v1 會默默以 60 kg 計算）；顯示最短推注／輸注時間（Fosphenytoin ≤150 mg PE/min、Phenytoin ≤50 mg/min 等）。
+  * 第二線新增 Phenytoin、Phenobarbital；第三線依 NCS 2012 改為 Midazolam / Propofol（mcg/kg/min ↔ mg/h、PRIS 警戒）/ Pentobarbital / Ketamine。
+  * 特殊族群勾選：懷孕／肝病 → Valproate 警示；心律不整／低血壓 → (Fos)phenytoin 警示。
 
 ## 🏥 臨床邏輯與學理依據
 
-本系統之時間切點 (T1, T2) 與藥物劑量上限，皆嚴格參考以下最新醫學會指引建置：
-* 國際抗癲癇聯盟 (ILAE) Status Epilepticus 治療與分類指引
-* 美國神經重症學會 (Neurocritical Care Society, NCS) SE 評估與處置指引
-* 台灣癲癇醫學會重積狀態治療共識
+* ILAE 2015 SE 定義與分類（Trinka, Epilepsia 2015）：痙攣性 SE t1 = 5 分、t2 = 30 分
+* AES 2016 痙攣性 SE 治療指引（Glauser, Epilepsy Curr 2016）：時程與第一、二線劑量
+* NCS 2012 SE 評估與處置指引（Brophy, Neurocrit Care 2012）：輸注速率、麻醉藥劑量、cEEG
+* ESETT（Kapur, NEJM 2019）、RAMPART（Silbergleit, NEJM 2012）
+
+## 🧪 測試
+
+劑量與階段判斷邏輯位於 `index.html` 的 `/*ENGINE-START*/ … /*ENGINE-END*/` 區塊：
+
+```
+node tests.cjs
+```
 
 ## 🚀 部署與使用方式
 
@@ -37,8 +51,8 @@
 ## 🛠 未來擴充計畫 (Roadmap)
 
 - [ ] 整合兒童劑量模式 (Pediatric Mode) 與兒童特有最大劑量限制
-- [ ] 針對特殊群體（如孕婦、嚴重肝腎功能不全者）加入第二線藥物選擇的 AI 警示
-- [ ] 新增「處置時間戳記 (Timestamp Log)」匯出功能，方便事後護理紀錄與交班
+- [x] 針對特殊群體（孕婦、肝病、心律不整）加入第二線藥物選擇警示（v2.0）
+- [x] 新增「處置時間戳記 (Timestamp Log)」與複製交班（v2.0）
 
 ## ⚠️ 臨床免責聲明 (Disclaimer)
 
