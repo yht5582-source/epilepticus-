@@ -3,9 +3,11 @@ const fs = require('fs');
 const vm = require('vm');
 const html = fs.readFileSync(__dirname + '/index.html', 'utf8');
 const src = html.split('/*ENGINE-START*/')[1].split('/*ENGINE-END*/')[0];
+const teachSrc = html.split('/*TEACH-START*/')[1].split('/*TEACH-END*/')[0];
 const ctx = { module: {} };
-vm.runInNewContext(src, ctx);
+vm.runInNewContext(src + teachSrc, ctx);
 const SE = ctx.module.exports;
+const TEACH = SE.TEACH;
 
 let pass = 0, fail = 0;
 function ok(cond, name) { if (cond) pass++; else { fail++; console.log('FAIL', name); } }
@@ -75,6 +77,57 @@ ok(!stageAt([], 12).alarm, '12 分不警報');
 // ---- 時間格式 ----
 eq(SE.mmss(min(5) + 7000), '05:07', 'mm:ss');
 eq(SE.mmss(min(75)), '1:15:00', '超過 1 小時顯示 h:mm:ss');
+
+// ---- 示範病例：每一步的工具判定與劑量都對照引擎 ----
+eq(TEACH.CASES.length, 6, '示範病例 6 例');
+TEACH.CASES.forEach(c => {
+    const rows = TEACH.replay(c, SE);
+    c.steps.forEach((st, i) => {
+        eq(rows[i].key, st.key, c.id + ' 第 ' + st.t + ' 分判定');
+        if (st.title) ok(rows[i].title.includes(st.title), c.id + ' 第 ' + st.t + ' 分標題含 ' + st.title);
+        if (st.drug) ok(rows[i].drug && rows[i].drug.log, c.id + ' 第 ' + st.t + ' 分藥物存在且可記錄');
+    });
+    for (let i = 1; i < c.steps.length; i++) ok(c.steps[i].t >= c.steps[i - 1].t, c.id + ' 時間遞增');
+    c.doses.forEach(x => {
+        const v = SE.doses(c.w, c.flags)[x.p].find(d => d.id === x.id)[x.field || 'dose'];
+        ok(v.includes(x.val), c.id + ' ' + x.id + ' 劑量 ' + x.val + '（got ' + v + '）');
+    });
+    (c.flagged || []).forEach(x => {
+        const v = SE.doses(c.w, c.flags)[x.p].find(d => d.id === x.id).flag;
+        ok(v.includes(x.re), c.id + ' ' + x.id + ' 警示含 ' + x.re);
+    });
+    ok(c.teach.length >= 3 && c.think.length >= 2 && c.src, c.id + ' 內容完整');
+});
+eq(SE.doses(58, { liver: true, cardiac: true })[2].find(d => d.id === 'lev').flag || '', '', 'c5 Levetiracetam 無警示');
+
+// ---- 考題 ----
+eq(TEACH.QUIZ.length, 20, '考題 20 題');
+eq(TEACH.QUIZ.filter(q => q.lv === 'basic').length, 10, '基礎 10 題');
+eq(TEACH.QUIZ.filter(q => q.lv === 'adv').length, 10, '高階 10 題');
+[0, 1, 2, 3].forEach(a => eq(TEACH.QUIZ.filter(q => q.ans === a).length, 5, '答案 ' + 'ABCD'[a] + ' 各 5 題'));
+TEACH.QUIZ.forEach((q, i) => {
+    const n = '第 ' + (i + 1) + ' 題';
+    eq(q.opts.length, 4, n + ' 4 個選項');
+    eq(new Set(q.opts).size, 4, n + ' 選項不重複');
+    ok(q.exp && q.src, n + ' 有解析與依據');
+    const c = q.check;
+    if (!c) return;
+    if (c.dose) {
+        const d = SE.doses(c.dose[0], c.flags || {})[c.dose[1]].find(x => x.id === c.dose[2]);
+        if (c.flag) ok(d.flag.includes(c.flag), n + ' 引擎警示');
+        else {
+            ok(d[c.field || 'dose'].includes(c.val), n + ' 引擎劑量 ' + c.val);
+            if (i < 10) ok(q.opts[q.ans].includes(c.val), n + ' 正解含 ' + c.val);
+        }
+    } else eq(stageAt(c.events.map(e => ev(e[0], e[1])), c.at).key, c.key, n + ' 引擎階段');
+});
+
+// ---- 心智圖：數字與引擎一致 ----
+const mapText = JSON.stringify(TEACH.MAP);
+eq(TEACH.MAP.left.length + TEACH.MAP.right.length, 13, '心智圖 13 個分支');
+['上限 4 mg', '上限 4500 mg', '上限 3000 mg', '上限 1500 mg PE', '150 mg PE/min', '0.05–2 mg/kg/h', '30–200 mcg/kg/min'].forEach(x => ok(mapText.includes(x), '心智圖含 ' + x));
+eq(dose(200, 2, 'vpa').dose, '3000 mg', '心智圖 Valproate 上限同引擎');
+eq(dose(200, 2, 'fos').dose, '1500 mg PE', '心智圖 Fosphenytoin 上限同引擎');
 
 console.log(pass + ' passed, ' + fail + ' failed');
 process.exit(fail ? 1 : 0);

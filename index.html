@@ -84,6 +84,81 @@
         .refs ol { padding-left: 20px; margin: 4px 0; }
         .disclaimer { background: #fdf2e9; border-left: 4px solid #e67e22; padding: 8px 12px; margin-top: 10px; }
 
+        /* 分頁 */
+        .tabs { display: flex; gap: 4px; border-bottom: 2px solid #8e44ad; margin-bottom: 18px; overflow-x: auto; }
+        .tabs a { flex: 1 0 auto; text-align: center; padding: 9px 12px; color: #6c3483; text-decoration: none; font-weight: bold; border-radius: 6px 6px 0 0; white-space: nowrap; }
+        .tabs a:hover { background: #f5eef8; }
+        .tabs a.on { background: #8e44ad; color: #fff; }
+        #tab-timer { font-family: ui-monospace, Menlo, monospace; }
+        .view-intro { color: #555; margin-top: 0; }
+        h2.view-title { color: #8e44ad; margin: 0 0 6px; font-size: 1.25em; }
+
+        /* 病例 */
+        .case { border: 1px solid #ddd; border-left: 5px solid #8e44ad; border-radius: 8px; padding: 14px 16px; margin-bottom: 16px; }
+        .case h3 { margin: 0 0 4px; color: #2c3e50; font-size: 1.08em; }
+        .case-meta { margin: 0 0 6px; color: #7f8c8d; font-size: 0.9em; }
+        .case p { margin: 6px 0; }
+        .tag { display: inline-block; font-size: 0.72em; font-weight: bold; padding: 1px 8px; border-radius: 10px; background: #f5eef8; color: #6c3483; vertical-align: middle; }
+        .tag.adv { background: #fdecea; color: #c0392b; }
+        .tag.basic { background: #e8f6ef; color: #1e8449; }
+        .think { background: #f9f9f9; border-radius: 6px; padding: 8px 12px; margin: 8px 0; }
+        .think ol { margin: 4px 0 0; padding-left: 20px; }
+        .case summary { cursor: pointer; font-weight: bold; color: #8e44ad; padding: 6px 0; }
+        .case h4 { margin: 12px 0 4px; color: #8e44ad; }
+        .table-wrap { overflow-x: auto; }
+        table.tl { width: 100%; border-collapse: collapse; font-size: 0.92em; }
+        table.tl th { background: #2c3e50; color: #fff; text-align: left; padding: 6px 8px; white-space: nowrap; }
+        table.tl td { border-bottom: 1px solid #eee; padding: 6px 8px; vertical-align: top; }
+        td.tl-t { font-family: ui-monospace, Menlo, monospace; white-space: nowrap; }
+        .dose { display: block; color: #a04000; margin-top: 2px; }
+        .tl-alert { color: #c0392b; font-size: 0.88em; margin-top: 3px; }
+        .teach-list { margin: 0; padding-left: 20px; }
+        .teach-list li { margin-bottom: 5px; }
+        .src { font-size: 0.82em; color: #7f8c8d; margin-top: 6px; }
+
+        /* 考題 */
+        .quiz-bar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; background: #f9f9f9; border-radius: 6px; padding: 8px 12px; margin-bottom: 14px; position: sticky; top: 4px; z-index: 5; }
+        #quiz-score { font-weight: bold; margin-right: auto; }
+        #quiz-filter button, .btn-plain { border: 1px solid #8e44ad; background: #fff; color: #6c3483; border-radius: 4px; padding: 4px 10px; cursor: pointer; font-weight: bold; }
+        #quiz-filter button.on { background: #8e44ad; color: #fff; }
+        .q { border: 1px solid #ddd; border-radius: 8px; padding: 12px 14px; margin-bottom: 12px; }
+        .q-head { font-size: 0.85em; color: #7f8c8d; }
+        .q-text { font-weight: bold; margin: 6px 0 8px; }
+        .opts { display: grid; gap: 6px; }
+        .opt { text-align: left; background: #fff; border: 1px solid #ccc; border-radius: 6px; padding: 8px 10px; font-size: 0.98em; cursor: pointer; color: #333; }
+        .opt:hover:enabled { background: #f5eef8; border-color: #8e44ad; }
+        .opt:disabled { cursor: default; color: #777; }
+        .opt.right { background: #e8f6ef; border-color: #27ae60; color: #1e8449; font-weight: bold; }
+        .opt.wrong { background: #fdecea; border-color: #e74c3c; color: #c0392b; }
+        .exp { background: #fbf8fd; border-left: 4px solid #8e44ad; padding: 8px 12px; margin-top: 8px; font-size: 0.95em; }
+
+        /* 心智圖 */
+        .mm-tools { display: flex; gap: 8px; margin-bottom: 12px; }
+        .mm-root { width: fit-content; margin: 0 auto; background: #8e44ad; color: #fff; font-weight: bold; padding: 8px 22px; border-radius: 20px; position: relative; z-index: 1; }
+        .mm { display: grid; grid-template-columns: 1fr 1fr; gap: 0 44px; position: relative; padding-top: 18px; }
+        .mm::before { content: ""; position: absolute; left: 50%; top: 0; bottom: 14px; border-left: 3px solid #8e44ad; }
+        .mm h3 { font-size: 0.95em; color: #6c3483; margin: 0 0 10px; }
+        .mm-right h3 { text-align: left; }
+        .mm-left h3 { text-align: right; }
+        .mm-node { position: relative; border: 2px solid #bbb; border-radius: 8px; background: #fff; margin-bottom: 12px; font-size: 0.92em; }
+        .mm-node summary { cursor: pointer; font-weight: bold; padding: 6px 10px; color: #2c3e50; }
+        .mm-node ul { margin: 0; padding: 0 10px 8px 26px; }
+        .mm-node li { margin-bottom: 3px; }
+        .mm-node::before { content: ""; position: absolute; top: 16px; width: 22px; border-top: 3px solid #8e44ad; }
+        #mm-left .mm-node::before { right: -24px; }
+        #mm-right .mm-node::before { left: -24px; }
+        .mm-node.p0 { border-color: #2980b9; } .mm-node.p0 summary { color: #2980b9; }
+        .mm-node.p1 { border-color: #27ae60; } .mm-node.p1 summary { color: #1e8449; }
+        .mm-node.p2 { border-color: #f39c12; } .mm-node.p2 summary { color: #b9770e; }
+        .mm-node.p3 { border-color: #c0392b; } .mm-node.p3 summary { color: #c0392b; }
+        @media (max-width: 700px) {
+            .mm { grid-template-columns: 1fr; gap: 0; padding-left: 14px; }
+            .mm::before { left: 2px; }
+            .mm-left h3 { text-align: left; }
+            #mm-left .mm-node::before, #mm-right .mm-node::before { left: -14px; right: auto; width: 12px; }
+            .mm-root { margin-left: 0; }
+        }
+
         @media (max-width: 600px) {
             body { padding: 6px; }
             .container { padding: 14px; }
@@ -102,7 +177,16 @@
 
 <div class="container">
     <h1>癲癇重積狀態 (SE) 時間軸治療決策</h1>
-    <div class="subtitle">成人痙攣性 SE｜時間 + 治療反應雙軌判斷｜v2.0</div>
+    <div class="subtitle">成人痙攣性 SE｜時間 + 治療反應雙軌判斷｜v2.1</div>
+
+    <nav class="tabs" aria-label="頁面分頁">
+        <a id="tab-tool" href="#tool">決策工具<span id="tab-timer"></span></a>
+        <a id="tab-cases" href="#cases">示範病例</a>
+        <a id="tab-quiz" href="#quiz">考題</a>
+        <a id="tab-map" href="#map">心智圖</a>
+    </nav>
+
+    <div id="view-tool">
 
     <!-- 浮動控制面板 -->
     <div class="control-panel" id="control-panel">
@@ -199,6 +283,45 @@
             <li>Silbergleit R, et al. Intramuscular versus intravenous therapy for prehospital status epilepticus (RAMPART). <i>N Engl J Med</i> 2012;366:591–600.</li>
         </ol>
         <div class="disclaimer">本工具僅供醫療專業人員作為急症決策之輔助參考，不可取代臨床判斷。劑量依實際體重計算並套用單次上限；給藥途徑、稀釋、輸注速率、院內品項（如 Fosphenytoin、Pentobarbital 可得性）請依各院 SOP，並落實雙重核對。兒童 (&lt;40 kg) 請另以兒科流程核對。</div>
+    </div>
+    </div><!-- /view-tool -->
+
+    <div id="view-cases" hidden>
+        <h2 class="view-title">示範病例 6 例</h2>
+        <p class="view-intro">先想再展開。時間軸的判定與劑量由同一套引擎即時算出；這裡不會更動決策工具的計時與紀錄。</p>
+        <div id="case-list"></div>
+    </div>
+
+    <div id="view-quiz" hidden>
+        <h2 class="view-title">考題 20 題</h2>
+        <p class="view-intro">基礎 10 題、高階 10 題。答案不會儲存，重新整理即清空。</p>
+        <div class="quiz-bar">
+            <span id="quiz-score"></span>
+            <span id="quiz-filter">
+                <button type="button" data-lv="all" onclick="filterQuiz('all')">全部</button>
+                <button type="button" data-lv="basic" onclick="filterQuiz('basic')">基礎</button>
+                <button type="button" data-lv="adv" onclick="filterQuiz('adv')">高階</button>
+            </span>
+            <button type="button" class="btn-plain" onclick="resetQuiz()">重新作答</button>
+        </div>
+        <div id="quiz-list"></div>
+    </div>
+
+    <div id="view-map" hidden>
+        <h2 class="view-title">診斷與治療心智圖</h2>
+        <div class="mm-tools">
+            <button type="button" class="btn-plain" onclick="toggleMap(true)">全部展開</button>
+            <button type="button" class="btn-plain" onclick="toggleMap(false)">全部收合</button>
+        </div>
+        <div class="mm-root">癲癇重積狀態 SE</div>
+        <div class="mm">
+            <div class="mm-left"><h3>診斷與評估</h3><div id="mm-left"></div></div>
+            <div class="mm-right"><h3>治療</h3><div id="mm-right"></div></div>
+        </div>
+    </div>
+
+    <div class="refs" id="teach-refs">
+        <details><summary><strong>病例、考題與心智圖的文獻</strong>（標明實際閱讀範圍）</summary><div id="teach-src"></div></details>
     </div>
 </div>
 
@@ -381,6 +504,249 @@ var SE = (function () {
 if (typeof module !== 'undefined') module.exports = SE;
 /*ENGINE-END*/
 
+/*TEACH-START*/
+var TEACH = (function () {
+    var CASES = [
+        { id: 'c1', title: '停藥後再發：足量 Lorazepam 一劑即停', tag: '第一線', w: 72, flags: {},
+          story: '28 歲男性，已知癲癇，出差 3 天忘了帶 Levetiracetam。全身強直陣攣，家屬錄影顯示發作 6 分鐘時抵達急診，仍在抽搐，SpO₂ 91%，指尖血糖 104 mg/dL，IV 已建立。',
+          think: ['這位 72 kg 的病人，Lorazepam 要給多少？護理師問「先打 2 mg 看看？」該怎麼回？', '發作停了、意識也恢復，還需要負荷 ASM 嗎？'],
+          steps: [
+              { t: 6, say: '到院仍發作，給氧、側躺、驗血糖與 ASM 濃度', key: 'initial' },
+              { t: 7, say: '一次給足 Lorazepam', ev: 'bzd', drug: [1, 'lora'], key: 'bzd-wait' },
+              { t: 9, say: '抽搐停止，40 分鐘內逐步清醒、對答切題', ev: 'stop', key: 'stopped' }
+          ],
+          doses: [{ p: 1, id: 'lora', val: '4 mg' }, { p: 2, id: 'lev', val: '4320 mg' }],
+          teach: [
+              'AES：起始治療應給「足量單次」，不要拆成小劑量。SENSE 登錄中，76% 的痙攣性 SE 病人第一步劑量低於指引，而累積劑量較高與較快終止相關（觀察性資料）。',
+              '工具在「僅 BZD 即停止」時會提醒負荷 ASM。NCS：除非病因已明確且完全矯正（如嚴重低血糖），所有 SE 都需要 urgent control therapy。',
+              '工具顯示的 4320 mg 是「持續發作」的 AES 劑量（60 mg/kg）。發作已停時，NCS 表列 Levetiracetam 為 1000–3000 mg，本例實際給多少請依院內流程。',
+              '已回到意識基線，AES 流程接「對症照護」；同時處理誘因（漏藥）並恢復維持治療。'
+          ], src: 'AES 2016；NCS 2012；Kellinghaus 2019 (SENSE)' },
+        { id: 'c2', title: '沒有 IV：IM Midazolam，動作停了卻叫不醒', tag: '無 IV・NCSE', w: 85, flags: {},
+          story: '50 歲男性，85 kg，陳舊性腦梗塞。家中抽搐 12 分鐘後救護員抵達，靜脈條件差，多次打不上 IV。',
+          think: ['救護現場該選什麼？IM 後仍抽搐，能再追加 BZD 嗎？', '動作停了 30 分鐘仍不醒，只有眼球細微抽動，下一步？'],
+          steps: [
+              { t: 12, say: '救護員抵達，仍全身抽搐，IV 失敗', key: 'initial' },
+              { t: 13, say: 'Midazolam IM（單次）', ev: 'bzdIM', drug: [1, 'midaim'], key: 'second' },
+              { t: 20, say: '到院仍抽搐，IV 建立中', key: 'second' },
+              { t: 22, say: '給 Levetiracetam', ev: 'asm', drug: [2, 'lev'], key: 'second-wait' },
+              { t: 30, say: '肢體抽搐停止（記錄發作停止）', ev: 'stop', key: 'stopped' },
+              { t: 60, say: '仍 GCS 6、眼球細微抽動，安排緊急 EEG', key: 'stopped' },
+              { t: 75, say: 'EEG 顯示持續發作，按「發作再發」', ev: 'recur', key: 'refractory' }
+          ],
+          doses: [{ p: 1, id: 'midaim', val: '10 mg' }, { p: 2, id: 'lev', val: '4500 mg' }],
+          teach: [
+              'RAMPART：到院時無發作且不需救援治療，IM Midazolam 73.4% vs IV Lorazepam 63.4%。AES 流程中 Midazolam IM 為單次給藥。',
+              '85 kg × 60 = 5100 mg，超過上限，工具封頂 4500 mg。',
+              '動作停止不等於發作停止：DeLorenzo 1998 控制抽搐後做連續 EEG，48% 仍有電氣發作，超過 14% 為 NCSE。NCS 將「SE 後超過 10 分鐘未回到基線」列為 cEEG 適應症。',
+              'VA 試驗中 subtle SE 的成功率僅 7.7–24.2%。工具把「ASM 後再發」判為 RSE，是提醒升級處置，不代表動作消失時已經控制。'
+          ], src: 'RAMPART 2012；AES 2016；DeLorenzo 1998；NCS 2012；Treiman 1998' },
+        { id: 'c3', title: '發燒意識混亂後 RSE：不要等滿時間才升級', tag: 'RSE', w: 55, flags: {},
+          story: '67 歲女性，55 kg，發燒 3 天、胡言亂語，抽搐到院時已 10 分鐘。無癲癇病史，血糖、血鈉正常。團隊懷疑中樞神經感染，正討論經驗性抗生素含 Meropenem。',
+          think: ['BZD 兩劑、Valproate 一劑後仍抽搐，要再試第三種 ASM，還是準備插管？', 'Valproate 與 Meropenem 同時開，會有什麼問題？'],
+          steps: [
+              { t: 10, say: '到院，尚未給藥', key: 'initial' },
+              { t: 11, say: 'Lorazepam 第一劑', ev: 'bzd', drug: [1, 'lora'], key: 'bzd-wait' },
+              { t: 16, say: '仍抽搐，準備第二劑', key: 'bzd2' },
+              { t: 17, say: 'Lorazepam 第二劑', ev: 'bzd', drug: [1, 'lora'], key: 'second' },
+              { t: 19, say: '給 Valproate', ev: 'asm', drug: [2, 'vpa'], key: 'second-wait' },
+              { t: 29, say: 'ASM 後 10 分鐘仍抽搐', key: 'refractory' },
+              { t: 32, say: '插管，Midazolam 負荷後滴注，啟動 cEEG', ev: 'anes', drug: [3, 'midaiv'], key: 'refractory' }
+          ],
+          doses: [{ p: 1, id: 'lora', val: '4 mg' }, { p: 2, id: 'vpa', val: '2200 mg' }, { p: 3, id: 'midaiv', val: 'Load 11 mg' }],
+          teach: [
+              'NCS：RSE 是對標準治療（起始 BZD 加另一種 AED）無反應，不是以分鐘數定義。本例在第 29 分鐘就進入 RSE。',
+              'AES 整理 VA 試驗：第一種藥成功 55.5%，第二種再增加 7.0%，第三種只再增加 2.3%。再試一種不應延誤麻醉藥。',
+              'NCS：需要連續靜脈 AED 時建議早期插管；cEEG 應在 SE 發生 1 小時內開始，昏迷者至少監測 48 小時；滴定至電氣發作停止或 burst suppression，電氣控制 24–48 小時後緩慢減量。',
+              '碳青黴烯類會降低 Valproate 濃度（兒科回溯：併用後 88% 的濃度低於治療範圍，建議盡量避免併用）。改用其他抗生素或其他 ASM。',
+              '懷疑單純疱疹腦炎時，經驗性 Acyclovir 與腰椎穿刺依院內流程；這點屬一般臨床做法，不在本頁引用的 SE 指引內容中。'
+          ], src: 'NCS 2012；AES 2016；Miranda Herrero 2015' },
+        { id: 'c4', title: '懷孕 33 週抽搐：先想子癲癇', tag: '懷孕', w: 68, flags: { preg: true },
+          story: '30 歲女性，懷孕 33 週，68 kg，頭痛兩天。急診候診時全身抽搐，BP 172/112 mmHg，尿蛋白 3+。發作第 6 分鐘仍未停止，無癲癇病史。',
+          think: ['MgSO₄ 和 BZD 怎麼排？第二線為什麼不選 Valproate？', '工具在發作停止時提醒「負荷 ASM」，本例也要照做嗎？'],
+          steps: [
+              { t: 6, say: '左側臥、給氧、胎心監測，通知產科', key: 'initial' },
+              { t: 7, say: '發作持續，給 Lorazepam', ev: 'bzd', drug: [1, 'lora'], key: 'bzd-wait' },
+              { t: 8, say: 'MgSO₄ 4–6 g IV 15–20 分鐘，維持 1–2 g/h（工具穩定期卡片）', key: 'bzd-wait' },
+              { t: 10, say: '發作停止，血壓處理，準備終止妊娠評估', ev: 'stop', key: 'stopped' }
+          ],
+          doses: [{ p: 1, id: 'lora', val: '4 mg' }, { p: 2, id: 'lev', val: '4080 mg' }],
+          flagged: [{ p: 2, id: 'vpa', re: '懷孕' }],
+          teach: [
+              'Collaborative Eclampsia Trial：MgSO₄ 比 Diazepam 減少 52% 再次抽搐（13.2% vs 27.9%），比 Phenytoin 減少 67%（5.7% vs 17.1%）。',
+              'NCS：SE 合併懷孕必須考慮子癲癇，娩出胎兒是最佳治療；MgSO₄ 優於 AED，但可能還需要其他 AED。',
+              '工具的「僅 BZD 停止，提醒負荷 ASM」是通用提醒，工具並不知道 MgSO₄ 已在滴注。本例的預防再發靠 MgSO₄，是否加 ASM 由團隊判斷。',
+              'NCS 指出第一孕期暴露風險，特別是 Valproate、Phenobarbital、Phenytoin，並建議可考慮 Levetiracetam。工具勾選懷孕時會標示 Valproate。'
+          ], src: 'Collaborative Eclampsia Trial 1995；NCS 2012' },
+        { id: 'c5', title: '肝硬化、傳導阻滯、低血壓：一起篩藥', tag: '共病選藥', w: 58, flags: { liver: true, cardiac: true },
+          story: '74 歲男性，58 kg，肝硬化（血小板 62k）、雙束支傳導阻滯。腹水感染住院中發生全身抽搐，BP 88/50 mmHg。',
+          think: ['Valproate、Fosphenytoin、Lacosamide 各有什麼疑慮？', '進入 RSE 後，Midazolam、Propofol、Pentobarbital 怎麼選？'],
+          steps: [
+              { t: 7, say: 'Lorazepam 第一劑，升壓與輸液同步', ev: 'bzd', drug: [1, 'lora'], key: 'bzd-wait' },
+              { t: 13, say: 'Lorazepam 第二劑', ev: 'bzd', drug: [1, 'lora'], key: 'second' },
+              { t: 16, say: '給 Levetiracetam', ev: 'asm', drug: [2, 'lev'], key: 'second-wait' },
+              { t: 26, say: '仍抽搐', key: 'refractory' },
+              { t: 30, say: '插管；Midazolam 負荷後滴注，升壓劑待命', ev: 'anes', drug: [3, 'midaiv'], key: 'refractory' }
+          ],
+          doses: [{ p: 1, id: 'lora', val: '4 mg' }, { p: 2, id: 'lev', val: '3480 mg' }, { p: 3, id: 'midaiv', val: 'Load 11.6 mg' }],
+          flagged: [{ p: 2, id: 'vpa', re: '肝病' }, { p: 2, id: 'fos', re: '傳導阻滯' }, { p: 2, id: 'pht', re: '傳導阻滯' }],
+          teach: [
+              'NCS 表列：Valproate 有高血氨、胰臟炎、血小板低下、肝毒性；(Fos)phenytoin 有低血壓、心律不整；Lacosamide 有 PR 延長、低血壓。本例都不理想。',
+              'Levetiracetam 不經肝代謝、交互作用少（NCS）。',
+              'RSE 選藥：NCS 認為資料不足以決定首選，但 Midazolam 不含 propylene glycol、低血壓可能較少；Propofol 尤其在負荷時易低血壓；Pentobarbital 低血壓與心臟抑制明顯。',
+              'Midazolam 的活性代謝物經腎排除，且長期使用會有 tachyphylaxis（NCS），若併腎衰竭要留意清醒延遲。'
+          ], src: 'NCS 2012' },
+        { id: 'c6', title: '健康年輕人的 NORSE：同步找病因與免疫治療', tag: 'SRSE・NORSE', w: 50, flags: {},
+          story: '26 歲女性，50 kg，無癲癇病史。5 天前類流感發燒，今晨突發抽搐。血糖、電解質、毒物篩檢、腦部影像初步皆無明確原因。',
+          think: ['這符合 NORSE 還是 FIRES？定義的關鍵是什麼？', '麻醉藥 24 小時仍未控制，前 72 小時和第一週要完成哪些事？'],
+          steps: [
+              { t: 8, say: 'Lorazepam 第一劑', ev: 'bzd', drug: [1, 'lora'], key: 'bzd-wait' },
+              { t: 14, say: 'Lorazepam 第二劑', ev: 'bzd', drug: [1, 'lora'], key: 'second' },
+              { t: 18, say: '給 Levetiracetam', ev: 'asm', drug: [2, 'lev'], key: 'second-wait' },
+              { t: 28, say: '仍發作', key: 'refractory' },
+              { t: 32, say: '插管、Midazolam 滴注、cEEG', ev: 'anes', drug: [3, 'midaiv'], key: 'refractory' },
+              { t: 1472, say: '麻醉藥滿 24 小時，cEEG 仍有發作', key: 'refractory', title: '超難治' }
+          ],
+          doses: [{ p: 1, id: 'lora', val: '4 mg' }, { p: 2, id: 'lev', val: '3000 mg' }, { p: 3, id: 'midaiv', val: 'Load 10 mg' }, { p: 3, id: 'prop', val: '240 mg/h', field: 'time' }],
+          teach: [
+              'NORSE 是臨床表現而非診斷：無活動性癲癇或相關神經病史，新發 RSE，且無明確急性或活動性結構、毒物、代謝原因。FIRES 是其亞型，需要 RSE 前 2 週到 24 小時內有發燒感染。本例符合 FIRES 的時間條件。',
+              '2022 共識：初期 24–48 小時的抗發作與麻醉藥依一般 SE 指引；診斷成立後積極升級。前 48 小時完成血清、CSF 與腦部 MRI 檢查。',
+              '第一線免疫治療（類固醇、IVIG、血漿置換）在 72 小時內開始；非感染性病例若第一線反應不佳，第二線在 7 天內開始；生酮飲食在第一週內開始。',
+              '惡性腫瘤篩檢含卵巢或睪丸超音波；anti-NMDAR 腦炎與卵巢畸胎瘤相關。',
+              '若改用 Propofol：工具換算本例 80 mcg/kg/min = 240 mg/h。超過此量且 >48 小時要警覺 PRIS。'
+          ], src: 'Hirsch 2018；Wickstrom 2022；NCS 2012' }
+    ];
+
+    // 選項順序固定，A–D 各 5 題；check 由 tests.cjs 對照引擎
+    var QUIZ = [
+        { lv: 'basic', q: 'ILAE 2015 對痙攣性 SE 的兩個時間點是？',
+          opts: ['t1 = 5 分（應開始治療）；t2 = 30 分（長期傷害風險）', 't1 = 10 分；t2 = 60 分', 't1 = 5 分；t2 = 20 分', 't1 = 30 分；t2 = 60 分'], ans: 0,
+          exp: 't1 是發作可能長時間持續、應開始治療的時間；t2 是之後可能有長期後果的時間。ILAE 註明這是目前最佳估計值。', src: 'Trinka 2015' },
+        { lv: 'basic', q: '80 kg 成人，IV Lorazepam 單次應給多少？',
+          opts: ['2 mg', '8 mg', '4 mg', '0.1 mg'], ans: 2,
+          exp: '0.1 mg/kg 算出 8 mg，但單次上限 4 mg。仍發作可重複一次。', src: 'AES 2016',
+          check: { dose: [80, 1, 'lora'], val: '4 mg' } },
+        { lv: 'basic', q: '72 kg 成人抽搐中、打不上 IV，首選是？',
+          opts: ['等 IV 建立後給 Lorazepam', 'Midazolam 10 mg IM', 'Levetiracetam 口服', 'Phenobarbital IM'], ans: 1,
+          exp: '>40 kg 給 10 mg IM。RAMPART 無發作到院 73.4% vs 63.4%；AES 認定在尚無 IV 的成人中優於 IV Lorazepam（Level A）。', src: 'RAMPART 2012；AES 2016',
+          check: { dose: [72, 1, 'midaim'], val: '10 mg' } },
+        { lv: 'basic', q: 'Midazolam IM 給完 5 分鐘仍抽搐，下一步？',
+          opts: ['再給一次 Midazolam 10 mg IM', '再等 15 分鐘', '先做腦部 CT 再決定', '建立 IV，給第二線 ASM'], ans: 3,
+          exp: 'AES 中 Midazolam IM 為單次；只有 IV Lorazepam、Diazepam 可重複一次。', src: 'AES 2016',
+          check: { events: [['bzdIM', 3]], at: 8, key: 'second' } },
+        { lv: 'basic', q: 'ESETT 比較 Levetiracetam、Fosphenytoin、Valproate 的結論是？',
+          opts: ['Levetiracetam 明顯最好', 'Fosphenytoin 明顯最好', '三者都約一半有效，未見優劣', '三者都超過 80% 有效'], ans: 2,
+          exp: '60 分鐘主要結果：47%、45%、46%，因無效益分析提前終止。', src: 'Kapur 2019 (ESETT)' },
+        { lv: 'basic', q: '90 kg 成人，Levetiracetam 負荷量是？',
+          opts: ['4500 mg', '5400 mg', '3000 mg', '1000 mg'], ans: 0,
+          exp: '60 mg/kg 算出 5400 mg，上限 4500 mg。', src: 'AES 2016',
+          check: { dose: [90, 2, 'lev'], val: '4500 mg' } },
+        { lv: 'basic', q: '成人 SE，指尖血糖 45 mg/dL，正確處置是？',
+          opts: ['D50W 50 mL 後不需其他處置', 'Thiamine 100 mg IV，再 D50W 50 mL IV', 'Insulin 後補鉀', '先等靜脈血糖報告'], ans: 1,
+          exp: 'AES 流程：血糖 <60 mg/dL，成人給 Thiamine 100 mg IV 再給 50 mL D50W。', src: 'AES 2016；NCS 2012' },
+        { lv: 'basic', q: '到院前已抽搐 25 分鐘，至今沒給任何藥。這是 RSE 嗎？',
+          opts: ['是，超過 20 分鐘就是', '是，直接麻醉藥', '不一定，先做 cEEG 再給藥', '不是，尚未試過標準治療，立即給 BZD'], ans: 3,
+          exp: 'NCS 以對治療無反應定義 RSE，不是看分鐘。工具此時仍是第一線，並提出 BZD 與 ASM 逾時警示。', src: 'NCS 2012',
+          check: { events: [], at: 25, key: 'initial' } },
+        { lv: 'basic', q: '懷孕 12 週癲癇病人 SE，BZD 無效，第二線最應避免哪一個？',
+          opts: ['Levetiracetam', 'Fosphenytoin', 'Valproate', '三者一樣，不必考慮'], ans: 2,
+          exp: 'NCS 指第一孕期暴露風險特別涉及 Valproate、Phenobarbital、Phenytoin，並建議可考慮 Levetiracetam。若仍是唯一可得藥物，先救母親才是重點。', src: 'NCS 2012',
+          check: { dose: [60, 2, 'vpa'], flags: { preg: true }, flag: '懷孕' } },
+        { lv: 'basic', q: '抽搐停止 20 分鐘，病人仍未回到意識基線，應該？',
+          opts: ['繼續觀察到明天', '安排緊急（連續）EEG', '認定為發作後狀態，不需檢查', '給 Flumazenil 讓病人醒'], ans: 1,
+          exp: 'NCS 將 SE 後超過 10 分鐘未回到基線列為 cEEG 適應症（18–50% 仍有非痙攣性發作）。', src: 'NCS 2012；DeLorenzo 1998' },
+
+        { lv: 'adv', q: '救護車給 Lorazepam 2 mg 一次，60 kg 病人到院仍抽搐。交班說「BZD 無效了」，最佳判讀是？',
+          opts: ['可跳過 BZD，已證實抗藥', '直接進入 RSE', '應改 Phenobarbital 為第一線', '劑量不足，尚未算足量失敗；補足後同步備第二線'], ans: 3,
+          exp: '60 kg 的足量是 4 mg。AES 強調給足單次，SENSE 顯示 76% 劑量偏低且累積劑量與終止相關。補足不應拖延第二線。', src: 'AES 2016；Kellinghaus 2019',
+          check: { dose: [60, 1, 'lora'], val: '4 mg' } },
+        { lv: 'adv', q: 'VA 試驗（AES 整理）：第一種藥成功 55.5%，第二種再加 7.0%，第三種再加 2.3%。臨床含意是？',
+          opts: ['每多一種藥效益快速下降，不應因連試 ASM 延誤升級', '第三種藥常常成功，應多試', '第一種藥選擇不重要', '應同時給三種藥取代序貫治療'], ans: 0,
+          exp: '第一、二線失敗後，傳統間歇藥物的效益很低。NCS 也將定義放在標準治療失敗，AES 第三階段為重複第二線或麻醉劑量。', src: 'AES 2016；Treiman 1998' },
+        { lv: 'adv', q: 'ESETT 中有 10% 最後判定為心因性發作。對 BZD 與 ASM 後仍「抽動」、生命徵象穩定的病人，最佳做法是？',
+          opts: ['看到閉眼就排除癲癇', '一律插管加麻醉藥', '盡速取得 EEG 佐證，同時照常監測與支持', '停止所有監測'], ans: 2,
+          exp: '單一徵象不足以確診；ILAE 分級以目擊、病史與 video-EEG 決定確定度。沒有 EEG 依據就升級麻醉有風險，但在排除前不可放鬆監測。', src: 'Kapur 2019；LaFrance 2013' },
+        { lv: 'adv', q: 'RSE 合併 BP 85/50 mmHg，以下關於麻醉藥的敘述何者最符合 NCS？',
+          opts: ['已證實 Pentobarbital 為首選', '資料不足以定首選；Midazolam 低血壓可能較少', 'Propofol 負荷量不影響血壓', '應避開所有滴注，改連續追加 ASM'], ans: 1,
+          exp: 'NCS：尚無足夠資料決定首選。Midazolam 不含 propylene glycol、可能較少低血壓；Propofol 尤其負荷時易低血壓。', src: 'NCS 2012' },
+        { lv: 'adv', q: '60 kg，Propofol 以 300 mg/h 滴注第 3 天，乳酸上升、CK 與三酸甘油酯升高、心衰竭。最合理的是？',
+          opts: ['加速滴注以求 burst suppression', '加上 Ketamine 繼續原劑量', '只補碳酸氫鈉，繼續同劑量', '懷疑 PRIS，停 Propofol 改其他麻醉藥並支持治療'], ans: 3,
+          exp: '300 mg/h ÷ 60 kg ≈ 83 mcg/kg/min，已超過 80 mcg/kg/min（工具換算 288 mg/h）且超過 48 小時。NCS 表列代謝性酸中毒、橫紋肌溶解、心腎衰竭。', src: 'NCS 2012',
+          check: { dose: [60, 3, 'prop'], field: 'time', val: '288 mg/h' } },
+        { lv: 'adv', q: 'Salzburg 準則驗證（疑似 NCSE 組）：敏感度 97.7%、特異度 89.6%、PPV 84%、NPV 98.6%。正確判讀是？',
+          opts: ['不符合準則時 NCSE 可能性低；符合時仍要結合臨床', '符合即 100% 確診', '敏感度低，不能用來排除', '只適用於兒童'], ans: 0,
+          exp: 'NPV 高有助排除，PPV 84% 代表仍有偽陽性。研究為回溯設計，納入者須有神經症狀。', src: 'Leitinger 2016' },
+        { lv: 'adv', q: 'HYBERNATUS 對痙攣性 SE 插管病人誘導低溫 32–34°C 24 小時，結果是？',
+          opts: ['90 天預後顯著改善', '死亡率顯著下降', '90 天良好預後無顯著差異，不良事件較多', '降低 SRSE 發生率'], ans: 2,
+          exp: 'GOS 5：49% vs 43%（P=0.43）。第一天 EEG 確認 SE 進展降低（11% vs 22%），其他次要結果無差異。', src: 'Legriel 2016' },
+        { lv: 'adv', q: '敗血症用 Meropenem，服用 Valproate 控制良好的病人又開始發作。最合理的解釋與處置是？',
+          opts: ['只是感染誘發，維持原方案', '碳青黴烯類降低 Valproate 濃度；盡量換抗生素或換 ASM', '抗生素升高 Valproate，應減量', '加大 Valproate 就能可靠解決'], ans: 1,
+          exp: '機轉與抑制 acylpeptide hydrolase 有關。兒科回溯資料併用後 88% 濃度低於治療範圍，建議盡量避免；若無法避免要監測濃度。', src: 'Miranda Herrero 2015；Suzuki 2017' },
+        { lv: 'adv', q: '成人 NORSE，感染初篩未發現明確原因。依 2022 國際共識，免疫治療的時程是？',
+          opts: ['第一線 72 小時內；反應不佳第二線 7 天內', '等所有抗體結果回來才開始', '第一線 2 週後開始', '不建議任何免疫治療'], ans: 0,
+          exp: '第一線含類固醇、IVIG、血漿置換。多數專家主張常見感染排除後甚至 48 小時即可開始；生酮飲食第一週內開始。這些是共識意見，療效證據有限。', src: 'Wickstrom 2022' },
+        { lv: 'adv', q: '結核治療中病人，反覆抽搐、ASM 反應差、嚴重代謝性酸中毒。最關鍵的治療是？',
+          opts: ['加 Phenytoin', '只做血液透析', '改 Valproate', 'Pyridoxine，依攝入量 gram-for-gram 給予'], ans: 3,
+          exp: 'Isoniazid 過量引起的抽搐常對抗發作藥反應差，Pyridoxine 通常可終止抽搐並協助矯正酸中毒。', src: 'Romero 1998' }
+    ];
+
+    // 心智圖：左側診斷評估、右側治療
+    var MAP = {
+        left: [
+            { t: '定義', c: ['痙攣性 SE：t1 = 5 分、t2 = 30 分（ILAE）', '發作間未恢復意識也算', '其他型態的時間點證據較少，本工具僅涵蓋痙攣性'] },
+            { t: '立即檢查', c: ['指尖血糖', 'Na、Ca、Mg、肝腎功能、CBC', 'ASM 濃度、毒物篩檢、驗孕', '不等報告才給 BZD'] },
+            { t: '常見病因', c: ['漏藥或 ASM 改變', '中樞感染、腦中風、腦傷', '代謝：低血糖、低血鈉', '藥物毒性或戒斷', '懷孕：子癲癇'] },
+            { t: '動作停止後', c: ['>10 分未回到基線 → cEEG', '控制抽搐後 48% 仍有電氣發作，>14% NCSE', 'cEEG 1 小時內開始，昏迷者 ≥48 小時', 'Salzburg 準則：敏感 97.7%、特異 89.6%'] },
+            { t: '勿漏的特殊原因', c: ['Isoniazid：Pyridoxine gram-for-gram', '低血鈉重症：3% 鹽水 150 mL（ESE 2014）', '碳青黴烯 + Valproate：濃度下降', '心因性發作：ESETT 佔 10%，需 EEG 佐證'] },
+            { t: 'NORSE / FIRES', c: ['無癲癇病史、新發 RSE、無明確急性原因', 'FIRES：RSE 前 2 週到 24 小時內發燒感染', '48 小時內血清、CSF、MRI', '惡性腫瘤篩檢含卵巢／睪丸超音波'] }
+        ],
+        right: [
+            { t: '0–5 分 穩定期', cls: 'p0', c: ['ABC、給氧、心電圖', 'IV，打不上不要拖', '血糖 <60：Thiamine 100 mg → D50W 50 mL'] },
+            { t: '5–20 分 BZD', cls: 'p1', c: ['Lorazepam 0.1 mg/kg，上限 4 mg，可重複一次', 'Midazolam IM >40 kg 10 mg、13–40 kg 5 mg，單次', 'Diazepam 0.15–0.2 mg/kg，上限 10 mg，可重複一次', '給足單次，不要拆小劑量'] },
+            { t: '20–40 分 ASM', cls: 'p2', c: ['BZD 無效就給，不必等滿 20 分', 'Levetiracetam 60 mg/kg，上限 4500 mg', 'Fosphenytoin 20 mg PE/kg，上限 1500 mg PE，≤150 mg PE/min', 'Valproate 40 mg/kg，上限 3000 mg', '都不可得：Phenobarbital 15 mg/kg', 'ESETT：47%、45%、46%'] },
+            { t: 'RSE', cls: 'p3', c: ['BZD + ASM 無效，不看分鐘', '早期插管、cEEG', 'Midazolam：0.2 mg/kg，0.05–2 mg/kg/h', 'Propofol：1–2 mg/kg，30–200 mcg/kg/min；>80 且 >48 小時注意 PRIS', 'Pentobarbital：5–15 mg/kg，0.5–5 mg/kg/h', '滴定至電氣發作停止或 burst suppression，維持 24–48 小時後緩慢減量'] },
+            { t: 'SRSE', cls: 'p3', c: ['麻醉藥 ≥24 小時仍未控制', '第一線免疫 72 小時內，第二線 7 天內（NORSE）', '生酮飲食第一週內（NORSE）', '誘導低溫：HYBERNATUS 預後無顯著改善'] },
+            { t: '特殊族群', c: ['懷孕 ≥20 週／產後：MgSO₄ 優於 AED，娩出是最佳治療', '第一孕期避 Valproate，可考慮 Levetiracetam', '肝病、高血氨、血小板低下：避 Valproate', '傳導阻滯、低血壓：避 (Fos)phenytoin，留意 Lacosamide'] },
+            { t: '控制後', c: ['即使 BZD 即停，通常仍需負荷 ASM', '病因已矯正者除外（如低血糖）', '回到基線才算恢復，否則找 NCSE'] }
+        ]
+    };
+
+    var SOURCES = [
+        'Trinka E, et al. <i>Epilepsia</i> 2015;56:1515–23.（ILAE 定義；讀摘要）',
+        'Glauser T, et al. <i>Epilepsy Curr</i> 2016;16:48–61.（AES；讀全文與 Figure 1）',
+        'Brophy GM, et al. <i>Neurocrit Care</i> 2012;17:3–23.（NCS；讀全文與表格）',
+        'Silbergleit R, et al. <i>N Engl J Med</i> 2012;366:591–600.（RAMPART；讀摘要）',
+        'Kapur J, et al. <i>N Engl J Med</i> 2019;381:2103–13.（ESETT；讀摘要）',
+        'Treiman DM, et al. <i>N Engl J Med</i> 1998;339:792–8.（VA 試驗；讀摘要）',
+        'Kellinghaus C, et al. <i>Ann Neurol</i> 2019;85:421–32.（SENSE；讀摘要）',
+        'DeLorenzo RJ, et al. <i>Epilepsia</i> 1998;39:833–40.（讀摘要）',
+        'Leitinger M, et al. <i>Lancet Neurol</i> 2016;15:1054–62.（Salzburg；讀摘要）',
+        'Legriel S, et al. <i>N Engl J Med</i> 2016;375:2457–67.（HYBERNATUS；讀摘要）',
+        'Hirsch LJ, et al. <i>Epilepsia</i> 2018;59:739–44.（NORSE 定義；讀摘要）',
+        'Wickstrom R, et al. <i>Epilepsia</i> 2022, PMID 35997591.（NORSE/FIRES 共識；讀全文）',
+        'Eclampsia Trial Collaborative Group. <i>Lancet</i> 1995;345:1455–63.（讀摘要）',
+        'Miranda Herrero MC, et al. <i>Eur J Paediatr Neurol</i> 2015;19:155–61；Suzuki E, et al. <i>Eur J Drug Metab Pharmacokinet</i> 2017;42:965–72.（Valproate–碳青黴烯；讀摘要，前者為兒科資料）',
+        'LaFrance WC, et al. <i>Epilepsia</i> 2013;54:2005–18.（讀摘要）',
+        'Romero JA, Kuczler FJ. <i>Am Fam Physician</i> 1998;57:749–52.（Isoniazid；讀摘要）',
+        'Spasovski G, et al. <i>Eur J Endocrinol</i> 2014;170:G1–47.（低血鈉；原文未能開啟，數字經二手資料確認）'
+    ];
+
+    // 依步驟重播引擎；不會動到工具的計時與紀錄
+    function replay(c, SE) {
+        var events = [], d = SE.doses(c.w, c.flags);
+        return c.steps.map(function (st) {
+            if (st.ev) events.push({ kind: st.ev, t: st.t * 60000 });
+            var g = SE.stage(SE.summarize(events, st.t * 60000));
+            var drug = st.drug ? d[st.drug[0]].filter(function (x) { return x.id === st.drug[1]; })[0] : null;
+            return { t: st.t, say: st.say, key: g.key, title: g.title, alerts: g.alerts, drug: drug };
+        });
+    }
+    return { CASES: CASES, QUIZ: QUIZ, MAP: MAP, SOURCES: SOURCES, replay: replay };
+})();
+if (typeof module !== 'undefined') module.exports.TEACH = TEACH;
+/*TEACH-END*/
+
+
     // ---------- 狀態 ----------
     var STORE = 'se-timeline-v2';
     var st = { baseMs: 0, runMs: 0, runStart: null, events: [] };
@@ -557,6 +923,87 @@ if (typeof module !== 'undefined') module.exports = SE;
         else fallback();
     }
 
+    // ---------- 分頁與教學內容 ----------
+    var VIEWS = ['tool', 'cases', 'quiz', 'map'];
+    function showView() {
+        var h = location.hash.replace('#', '');
+        var v = VIEWS.indexOf(h) >= 0 ? h : 'tool';
+        VIEWS.forEach(function (k) {
+            document.getElementById('view-' + k).hidden = k !== v;
+            var a = document.getElementById('tab-' + k);
+            a.classList.toggle('on', k === v);
+            if (k === v) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
+        });
+        document.getElementById('teach-refs').hidden = v === 'tool';
+        updateTabTimer();
+        window.scrollTo(0, 0);
+    }
+    function caseHtml(c, i) {
+        var d = SE.doses(c.w, c.flags), rows = TEACH.replay(c, SE);
+        var flagNames = { preg: '懷孕', liver: '肝病 / 血小板低下', cardiac: '傳導阻滯 / 低血壓' };
+        var flags = Object.keys(c.flags).map(function (k) { return flagNames[k]; }).join('、');
+        return '<article class="case" id="' + c.id + '"><h3>病例 ' + (i + 1) + '｜' + c.title + ' <span class="tag">' + c.tag + '</span></h3>' +
+            '<p class="case-meta">體重 ' + c.w + ' kg' + (flags ? '｜勾選：' + flags : '') + '</p><p>' + c.story + '</p>' +
+            '<div class="think"><b>先想想</b><ol>' + c.think.map(function (q) { return '<li>' + q + '</li>'; }).join('') + '</ol></div>' +
+            '<details><summary>展開處置與工具判定</summary><div class="table-wrap"><table class="tl"><thead><tr><th>發作時間</th><th>處置</th><th>工具判定</th></tr></thead><tbody>' +
+            rows.map(function (r) {
+                var dose = r.drug ? '<b class="dose">' + r.drug.name.split(' - ')[0] + '：' + r.drug.dose + '</b>' : '';
+                var alerts = r.alerts.map(function (a) { return '<div class="tl-alert">' + a.text + '</div>'; }).join('');
+                return '<tr><td class="tl-t">' + (r.t >= 60 ? Math.floor(r.t / 60) + ' 時 ' + (r.t % 60) + ' 分' : r.t + ' 分') + '</td><td>' + r.say + dose + '</td><td>' + r.title + alerts + '</td></tr>';
+            }).join('') + '</tbody></table></div><h4>教學重點</h4><ul class="teach-list">' +
+            c.teach.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul><p class="src">依據：' + c.src + '</p></details></article>';
+    }
+    function renderCases() {
+        document.getElementById('case-list').innerHTML = TEACH.CASES.map(caseHtml).join('');
+    }
+    var quizAns = {}, quizLv = 'all';
+    function renderQuiz() {
+        var list = TEACH.QUIZ.map(function (q, i) { return { q: q, i: i }; }).filter(function (x) { return quizLv === 'all' || x.q.lv === quizLv; });
+        var done = list.filter(function (x) { return quizAns[x.i] !== undefined; });
+        var right = done.filter(function (x) { return quizAns[x.i] === x.q.ans; }).length;
+        document.getElementById('quiz-score').textContent = '已答 ' + done.length + ' / ' + list.length + '，答對 ' + right + ' 題';
+        Array.prototype.forEach.call(document.querySelectorAll('#quiz-filter button'), function (b) { b.classList.toggle('on', b.getAttribute('data-lv') === quizLv); });
+        document.getElementById('quiz-list').innerHTML = list.map(function (x) {
+            var q = x.q, a = quizAns[x.i], ans = a !== undefined;
+            return '<div class="q"><div class="q-head"><span class="tag ' + q.lv + '">' + (q.lv === 'adv' ? '高階' : '基礎') + '</span> 第 ' + (x.i + 1) + ' 題</div><p class="q-text">' + q.q + '</p><div class="opts">' +
+                q.opts.map(function (o, j) {
+                    var cls = ans ? (j === q.ans ? ' right' : (j === a ? ' wrong' : '')) : '';
+                    return '<button type="button" class="opt' + cls + '"' + (ans ? ' disabled' : '') + ' onclick="answerQuiz(' + x.i + ',' + j + ')"><b>' + 'ABCD'.charAt(j) + '.</b> ' + o + '</button>';
+                }).join('') + '</div>' +
+                (ans ? '<div class="exp"><b>' + (a === q.ans ? '答對' : '正解 ' + 'ABCD'.charAt(q.ans)) + '。</b>' + q.exp + '<div class="src">依據：' + q.src + '</div></div>' : '') + '</div>';
+        }).join('');
+    }
+    function answerQuiz(i, j) {
+        var y = window.scrollY;
+        quizAns[i] = j; renderQuiz();
+        window.scrollTo(0, y);
+    }
+    function filterQuiz(lv) { quizLv = lv; renderQuiz(); }
+    function resetQuiz() { quizAns = {}; renderQuiz(); window.scrollTo(0, 0); }
+    function mapSide(items) {
+        return items.map(function (b) {
+            return '<details class="mm-node ' + (b.cls || '') + '" open><summary>' + b.t + '</summary><ul>' +
+                b.c.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul></details>';
+        }).join('');
+    }
+    function renderMap() {
+        document.getElementById('mm-left').innerHTML = mapSide(TEACH.MAP.left);
+        document.getElementById('mm-right').innerHTML = mapSide(TEACH.MAP.right);
+    }
+    function toggleMap(open) {
+        Array.prototype.forEach.call(document.querySelectorAll('.mm-node'), function (d) { d.open = open; });
+    }
+    function renderSources() {
+        var html = '<ol>' + TEACH.SOURCES.map(function (s) { return '<li>' + s + '</li>'; }).join('') + '</ol>';
+        document.getElementById('teach-src').innerHTML = html;
+    }
+    // 在其他分頁也看得到計時中的發作時間
+    function updateTabTimer() {
+        document.getElementById('tab-timer').textContent = isRunning() ? ' ' + SE.mmss(elapsedMs()) : '';
+    }
+    window.addEventListener('hashchange', showView);
+    setInterval(updateTabTimer, 1000);
+
     // 初始化
     window.onload = function () {
         load();
@@ -565,6 +1012,11 @@ if (typeof module !== 'undefined') module.exports = SE;
         calculateDoses();
         renderLog();
         runTick();
+        renderCases();
+        renderQuiz();
+        renderMap();
+        renderSources();
+        showView();
     };
     document.addEventListener('visibilitychange', function () { if (!document.hidden) updateDisplay(); });
 </script>
